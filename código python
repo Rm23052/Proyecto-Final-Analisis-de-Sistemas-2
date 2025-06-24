@@ -1,0 +1,102 @@
+def gestionar_consulta_medica():
+    print("=== SISTEMA DE GESTIÓN DE CONSULTAS MÉDICAS ===\n")
+    
+    # Datos básicos
+    nombre_paciente = input("Nombre completo del paciente: ")
+    edad = input("Edad (Años): ")
+
+    # Selección de sexo
+    print("Sexo:")
+    print("1. Masculino")
+    print("2. Femenino")
+    print("3. Otro")
+    sexo_opcion = input("Seleccione Sexo (1/2/3): ")
+    sexo = ""
+    if sexo_opcion == "1":
+        sexo = "Masculino"
+    elif sexo_opcion == "2":
+        sexo = "Femenino"
+    elif sexo_opcion == "3":
+        sexo = "Otro"
+    else:
+        sexo = "No especificado"
+
+    numero_telefonico = input("Número telefónico: ")
+    
+    # Fecha y hora de la cita
+    fecha_cita = input("Fecha de la cita (DD/MM/AAAA): ")
+    
+    # Selección de hora
+    print("Hora:")
+    hora = input("Seleccione Hora (ej., 09:30): ")
+    
+    print("AM o PM:")
+    am_pm = input("Seleccione (AM/PM): ").upper()
+    if am_pm not in ["AM", "PM"]:
+        am_pm = "No especificado"
+
+    # Selección de especialidad
+    print("\nSeleccione la especialidad (escriba los números separados por coma si hay más de una):")
+    especialidades = ["Pediatría", "Medicina General", "Dermatología", "Odontología", "Cardiología", "Psicología"]
+    for i, esp in enumerate(especialidades, start=1):
+        print(f"{i}. {esp}")
+    seleccion_especialidades = input("Especialidades: ")
+    seleccion_list = seleccion_especialidades.split(',')
+    especialidad_seleccionada = []
+    for s in seleccion_list:
+        s = s.strip()
+        if s.isdigit():
+            idx = int(s)
+            if 1 <= idx <= len(especialidades):
+                especialidad_seleccionada.append(especialidades[idx-1])
+
+    # Seleccionar el médico
+    medicos = {
+        "Pediatría": ["Dr. Gómez", "Dra. Sánchez"],
+        "Medicina General": ["Dr. Pérez", "Dra. Martínez"],
+        "Dermatología": ["Dr. Ruiz"],
+        "Odontología": ["Dr. López"],
+        "Cardiología": ["Dra. Torres"],
+        "Psicología": ["Dra. Fernández"]
+    }
+
+    medico_seleccionado = None
+    if especialidad_seleccionada:
+        print("\nSeleccione al médico para la especialidad seleccionada:")
+        for i, esp in enumerate(especialidad_seleccionada, start=1):
+            print(f"\nEspecialidad: {esp}")
+            for j, medico in enumerate(medicos.get(esp, []), start=1):
+                print(f"  {j}. {medico}")
+            opcion_medico = input("Seleccione el médico (número) o deje vacío para omitir: ")
+            if opcion_medico.isdigit():
+                med_idx = int(opcion_medico)
+                if 1 <= med_idx <= len(medicos.get(esp, [])):
+                    medico_seleccionado = medicos[esp][med_idx-1]
+                    break
+    else:
+        print("No se seleccionó ninguna especialidad.")
+
+    # Resumen de la cita
+    print("\n=== Resumen de la Cita ===")
+    print(f"Paciente: {nombre_paciente}")
+    print(f"Edad: {edad} años")
+    print(f"Sexo: {sexo}")
+    print(f"Teléfono: {numero_telefonico}")
+    print(f"Fecha de la cita: {fecha_cita}")
+    print(f"Hora: {hora} {am_pm}")
+    print(f"Especialidad(s): {', '.join(especialidad_seleccionada) if especialidad_seleccionada else 'Ninguna'}")
+    print(f"Médico seleccionado: {medico_seleccionado if medico_seleccionado else 'No seleccionado'}")
+
+    print("\nOpciones:")
+    print("1. Crear Cita")
+    print("2. Crear Una Nueva Cita")
+    print("3. Modificar Cita")
+    print("4. Historial de Citas")
+    print("5. Imprimir Cita")
+    print("6. Salir")
+
+    opcion = input("Seleccione una opción: ")
+    print(f"Ha seleccionado la opción {opcion}. (Funcionalidad no implementada en este ejemplo)")
+
+if __name__ == "__main__":
+    gestionar_consulta_medica()
